@@ -7,6 +7,8 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.7"
+cython = "^0.29.13"
+thriftpy2 = "^0.4.6"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.4"
