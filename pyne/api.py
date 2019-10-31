@@ -39,7 +39,7 @@ class TalkApi(Api, FTalkServiceClient):
     pass
 
 
-class TalkClientFactory(ApiFactory):
+class TalkApiFactory(ApiFactory):
 
     def create(self, path: str, headers: Dict) -> TalkApi:
         provider = self.get_provider(path, headers)
@@ -50,7 +50,7 @@ class AuthApi(Api, FAuthServiceClient):
     pass
 
 
-class AuthClientFactory(ApiFactory):
+class AuthApiFactory(ApiFactory):
     def create(self, path: str, headers: Dict) -> AuthApi:
         provider = self.get_provider(path, headers)
         return AuthApi(provider)
