@@ -6,24 +6,26 @@
 from abc import ABCMeta, abstractmethod
 from typing import Dict
 
-from thrift.protocol.TCompactProtocol import TCompactProtocolAcceleratedFactory
-from frugal.provider import FServiceProvider
 from frugal.protocol import FProtocolFactory
+from frugal.provider import FServiceProvider
+from thrift.protocol.TCompactProtocol import TCompactProtocolAcceleratedFactory
 
 from http_client import HttpClientFactory
+from .line_thrift.line import FTalkServiceClient
+from .line_thrift.line import FAuthServiceClient
 
 
-class ServiceClient(metaclass=ABCMeta):
+class Client(metaclass=ABCMeta):
     pass
 
 
-class ServiceClientFactory(metaclass=ABCMeta):
-    def __init__(self, host: str = "legy-jp-addr.line.naver.jp"):
+class ClientFactory(metaclass=ABCMeta):
+    def __init__(self, host):
         self.host = host
 
     @abstractmethod
     def create(self, path: str, headers: Dict):
-        pass
+        NotImplementedError()
 
     def get_provider(self, path, headers):
         http_client = HttpClientFactory(self.host).get_client(path, headers)
@@ -33,27 +35,21 @@ class ServiceClientFactory(metaclass=ABCMeta):
         return provider
 
 
-class TalkClient(ServiceClient):
+class TalkClient(Client, FTalkServiceClient):
     pass
 
 
-class TalkClientFactory(ServiceClientFactory):
-    super.__init__()
-
-    def create(self, path, headers):
+class TalkClientFactory(ClientFactory):
+    def create(self, path: str, headers: Dict) -> TalkClient:
         provider = self.get_provider(path, headers)
-        service_client = TalkService.Client
-        return service_client(provider)
+        return TalkClient(provider)
 
 
-class AuthClient(ServiceClient):
+class AuthClient(Client, FAuthServiceClient):
     pass
 
 
-class AuthClientFactory(ServiceClientFactory):
-    super.__init__()
-
-    def create(self, path, headers):
+class AuthClientFactory(ClientFactory):
+    def create(self, path: str, headers: Dict) -> AuthClient:
         provider = self.get_provider(path, headers)
-        service_client = AuthService.Client
-        return service_client(provider)
+        return AuthClient(provider)

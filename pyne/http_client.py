@@ -14,10 +14,7 @@ from thrift.transport.TTransport import TMemoryBuffer, TTransportBase
 
 class HttpClient(FTransportBase):
     def __init__(
-        self,
-        uri: str,
-        headers: Optional[Dict] = None,
-        request_capacity: int = 0,
+        self, uri: str, headers: Optional[Dict] = None, request_capacity: int = 0
     ) -> None:
         super().__init__(request_capacity)
         self.uri = uri
@@ -29,9 +26,7 @@ class HttpClient(FTransportBase):
         self.session = None
 
     def is_open(self) -> bool:
-        if self.session is not None:
-            return self.session.closed()
-        return False
+        return self.session.closed() if self.session else False
 
     async def open(self) -> None:
         self.session = aiohttp.ClientSession(
