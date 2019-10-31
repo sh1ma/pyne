@@ -2,18 +2,17 @@
 name = "pyne"
 version = "0.1.0"
 description = ""
-authors = ["Sh1ma <in9lude@gmail.com>"]
+authors = ["4masaka <in9lude@gmail.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.7"
-cython = "^0.29.13"
-thriftpy2 = "^0.4.6"
+frugal = "^3.4"
+aiohttp = "^3.6"
 
 [tool.poetry.dev-dependencies]
-pylint = "^2.4"
-pytest = "^5.2"
 black = {version = "^18.3-alpha.0",allows-prereleases = true}
+pylint = "^2.4"
 
 [build-system]
 requires = ["poetry>=0.12"]
