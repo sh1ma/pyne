@@ -1,10 +1,15 @@
+# Copyright (c) 2019 4masaka
+#
+# This software is released under the MIT License.
+# https://opensource.org/licenses/MIT
+
 from types import TracebackType
-from typing import Optional, Type, Dict
-from thrift.transport.TTransport import TMemoryBuffer
-from thrift.transport.TTransport import TTransportBase
-from frugal.context import FContext
-from frugal.aio.transport import FTransportBase
+from typing import Dict, Optional, Type
+
 import aiohttp
+from frugal.aio.transport import FTransportBase
+from frugal.context import FContext
+from thrift.transport.TTransport import TMemoryBuffer, TTransportBase
 
 
 class HttpClient(FTransportBase):
@@ -60,6 +65,11 @@ class HttpClient(FTransportBase):
 
 
 class HttpClientFactory:
-    def get_client(self, scheme: str, host: str, path: str, port: int, headers: Dict):
-        uri = f"{scheme}://{host}{path}:{port}"
+    def __init__(self, host: str, port: int = 443, scheme: str = "https"):
+        self.host = host
+        self.port = port
+        self.scheme = scheme
+
+    def get_client(self, path: str, headers: Dict):
+        uri = f"{self.scheme}://{self.host}{path}:{self.port}"
         return HttpClient(uri, headers)

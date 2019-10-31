@@ -6,8 +6,6 @@
 from abc import ABCMeta, abstractmethod
 from typing import Dict
 
-from thrift.protocol import TCompactProtocol
-
 
 class ServiceClient(metaclass=ABCMeta):
     pass
