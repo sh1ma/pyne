@@ -11,8 +11,8 @@ from frugal.provider import FServiceProvider
 from thrift.protocol.TCompactProtocol import TCompactProtocolAcceleratedFactory
 
 from http_client import HttpClientFactory
-from .line_thrift import Talk
-from .line_thrift import Auth
+from .line_thrift.line import FTalkServiceClient
+from .line_thrift.line import FAuthServiceClient
 
 
 class Client(metaclass=ABCMeta):
@@ -35,7 +35,7 @@ class ClientFactory(metaclass=ABCMeta):
         return provider
 
 
-class TalkClient(Client, Talk):
+class TalkClient(Client, FTalkServiceClient):
     pass
 
 
@@ -45,7 +45,7 @@ class TalkClientFactory(ClientFactory):
         return TalkClient(provider)
 
 
-class AuthClient(Client, Auth):
+class AuthClient(Client, FAuthServiceClient):
     pass
 
 
