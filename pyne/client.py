@@ -20,14 +20,14 @@ class Client(metaclass=ABCMeta):
 
 
 class ClientFactory(metaclass=ABCMeta):
-    def __init__(self, host):
+    def __init__(self, host: str):
         self.host = host
 
     @abstractmethod
     def create(self, path: str, headers: Dict):
         NotImplementedError()
 
-    def get_provider(self, path, headers):
+    def get_provider(self, path, headers) -> FServiceProvider:
         http_client = HttpClientFactory(self.host).get_client(path, headers)
         http_client.open()
         protocol_factory = TCompactProtocolAcceleratedFactory()
@@ -40,6 +40,7 @@ class TalkClient(Client, FTalkServiceClient):
 
 
 class TalkClientFactory(ClientFactory):
+
     def create(self, path: str, headers: Dict) -> TalkClient:
         provider = self.get_provider(path, headers)
         return TalkClient(provider)
