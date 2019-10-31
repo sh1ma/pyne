@@ -26,9 +26,7 @@ class HttpClient(FTransportBase):
         self.session = None
 
     def is_open(self) -> bool:
-        if self.session is not None:
-            return self.session.closed()
-        return False
+        return self.session.closed() if self.session else False
 
     async def open(self) -> None:
         self.session = aiohttp.ClientSession(
