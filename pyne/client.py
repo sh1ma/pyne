@@ -11,8 +11,8 @@ from frugal.provider import FServiceProvider
 from thrift.protocol.TCompactProtocol import TCompactProtocolAcceleratedFactory
 
 from http_client import HttpClientFactory
-from lib.line.f_AuthService import Client as Auth
-from lib.line.f_TalkService import Client as Talk
+from .line_thrift import Talk
+from .line_thrift import Auth
 
 
 class Client(metaclass=ABCMeta):
