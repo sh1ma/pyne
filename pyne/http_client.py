@@ -70,6 +70,6 @@ class HttpClientFactory:
         self.port = port
         self.scheme = scheme
 
-    def get_client(self, path: str, headers: Dict):
+    def get_client(self, path: str, headers: Dict) -> HttpClient:
         uri = f"{self.scheme}://{self.host}{path}:{self.port}"
         return HttpClient(uri, headers)
