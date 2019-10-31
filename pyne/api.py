@@ -15,11 +15,11 @@ from .line_thrift.line import FTalkServiceClient
 from .line_thrift.line import FAuthServiceClient
 
 
-class Client(metaclass=ABCMeta):
+class Api(metaclass=ABCMeta):
     pass
 
 
-class ClientFactory(metaclass=ABCMeta):
+class ApiFactory(metaclass=ABCMeta):
     def __init__(self, host: str):
         self.host = host
 
@@ -35,22 +35,22 @@ class ClientFactory(metaclass=ABCMeta):
         return provider
 
 
-class TalkClient(Client, FTalkServiceClient):
+class TalkApi(Api, FTalkServiceClient):
     pass
 
 
-class TalkClientFactory(ClientFactory):
+class TalkClientFactory(ApiFactory):
 
-    def create(self, path: str, headers: Dict) -> TalkClient:
+    def create(self, path: str, headers: Dict) -> TalkApi:
         provider = self.get_provider(path, headers)
-        return TalkClient(provider)
+        return TalkApi(provider)
 
 
-class AuthClient(Client, FAuthServiceClient):
+class AuthApi(Api, FAuthServiceClient):
     pass
 
 
-class AuthClientFactory(ClientFactory):
-    def create(self, path: str, headers: Dict) -> AuthClient:
+class AuthClientFactory(ApiFactory):
+    def create(self, path: str, headers: Dict) -> AuthApi:
         provider = self.get_provider(path, headers)
-        return AuthClient(provider)
+        return AuthApi(provider)
