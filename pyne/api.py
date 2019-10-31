@@ -15,19 +15,19 @@ from .line_thrift.line import FTalkServiceClient
 from .line_thrift.line import FAuthServiceClient
 
 
-class Client(metaclass=ABCMeta):
+class Api(metaclass=ABCMeta):
     pass
 
 
-class ClientFactory(metaclass=ABCMeta):
-    def __init__(self, host):
+class ApiFactory(metaclass=ABCMeta):
+    def __init__(self, host: str):
         self.host = host
 
     @abstractmethod
     def create(self, path: str, headers: Dict):
         NotImplementedError()
 
-    def get_provider(self, path, headers):
+    def get_provider(self, path, headers) -> FServiceProvider:
         http_client = HttpClientFactory(self.host).get_client(path, headers)
         http_client.open()
         protocol_factory = TCompactProtocolAcceleratedFactory()
@@ -35,21 +35,22 @@ class ClientFactory(metaclass=ABCMeta):
         return provider
 
 
-class TalkClient(Client, FTalkServiceClient):
+class TalkApi(Api, FTalkServiceClient):
     pass
 
 
-class TalkClientFactory(ClientFactory):
-    def create(self, path: str, headers: Dict) -> TalkClient:
+class TalkClientFactory(ApiFactory):
+
+    def create(self, path: str, headers: Dict) -> TalkApi:
         provider = self.get_provider(path, headers)
-        return TalkClient(provider)
+        return TalkApi(provider)
 
 
-class AuthClient(Client, FAuthServiceClient):
+class AuthApi(Api, FAuthServiceClient):
     pass
 
 
-class AuthClientFactory(ClientFactory):
-    def create(self, path: str, headers: Dict) -> AuthClient:
+class AuthClientFactory(ApiFactory):
+    def create(self, path: str, headers: Dict) -> AuthApi:
         provider = self.get_provider(path, headers)
-        return AuthClient(provider)
+        return AuthApi(provider)
