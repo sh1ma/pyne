@@ -9,10 +9,16 @@ license = "MIT"
 python = "^3.7"
 frugal = "^3.4"
 aiohttp = "^3.6"
+async-timeout = "^3.0"
+asyncio-nats-client = "^0.10.0"
+aiostomp = "^1.6"
 
 [tool.poetry.dev-dependencies]
 black = {version = "^18.3-alpha.0",allows-prereleases = true}
 pylint = "^2.4"
+pytest = "^5.2"
+ipython = "^7.9"
+pytest-asyncio = "^0.10.0"
 
 [build-system]
 requires = ["poetry>=0.12"]
