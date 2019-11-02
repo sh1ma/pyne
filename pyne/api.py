@@ -1,8 +1,9 @@
-# Copyright (c) 2019 4masaka
-#
-# This software is released under the MIT License.
-# https://opensource.org/licenses/MIT
+"""
+ Copyright (c) 2019 4masaka
 
+ This software is released under the MIT License.
+ https://opensource.org/licenses/MIT
+"""
 from abc import ABCMeta, abstractmethod
 from typing import Dict
 

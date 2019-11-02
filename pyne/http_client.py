@@ -1,10 +1,9 @@
-# Copyright (c) 2019 4masaka
-#
-# This software is released under the MIT License.
-# https://opensource.org/licenses/MIT
+"""
+ Copyright (c) 2019 4masaka
 
-from types import TracebackType
-from typing import Dict, Optional, Type
+ This software is released under the MIT License.
+ https://opensource.org/licenses/MIT
+"""
 
 import aiohttp
 from frugal.aio.transport import FTransportBase
