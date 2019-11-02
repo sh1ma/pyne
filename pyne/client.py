@@ -19,7 +19,7 @@ class Client:
         endpoints: Endpointsオブジェクト
     """
 
-    def __init__(self, custom_config: Config, custom_endpoints: Endpoints, loop=None):
+    def __init__(self, custom_config: Config, custom_endpoints: Endpoints):
         self.config: Config = custom_config() if custom_config else Config()
         self.endpoints: Endpoints = custom_endpoints() if custom_endpoints else Endpoints()
         # self.loop = loop or asyncio.get_event_loop()
