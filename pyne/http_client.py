@@ -5,6 +5,8 @@
  https://opensource.org/licenses/MIT
 """
 
+from typing import Dict, Optional
+
 import aiohttp
 from frugal.aio.transport import FTransportBase
 from frugal.context import FContext
@@ -25,15 +27,13 @@ class HttpClient(FTransportBase):
         self.session = None
 
     def is_open(self) -> bool:
-        return self.session.closed() if self.session else False
+        return True
 
-    async def open(self) -> None:
-        self.session = aiohttp.ClientSession(
-            headers=self.headers, raise_for_status=True
-        )
+    def open(self) -> None:
+        return True
 
     async def close(self) -> None:
-        await self.session.close()
+        NotImplementedError()
 
     async def oneway(self, context, payload):
         NotImplementedError()
@@ -42,21 +42,14 @@ class HttpClient(FTransportBase):
         NotImplementedError()
 
     async def request(self, context: FContext, payload) -> TTransportBase:
-        res = await self.session.post(self.uri, data=payload)
-        return TMemoryBuffer(res.content.read())
-
-    async def __aenter__(self):
-        await self.open()
-        return self
-
-    async def __aexit__(
-        self,
-        exc_type: Optional[Type[BaseException]],
-        exc: Optional[BaseException],
-        traceback: Optional[TracebackType],
-    ) -> None:
-        await self.close()
-
+        payload = payload[4:]
+        async with aiohttp.request(
+            "POST",
+            url=self.uri,
+            data=payload,
+            headers=self.headers
+        ) as res:
+            return TMemoryBuffer(await res.content.read())
 
 class HttpClientFactory:
     def __init__(self, host: str, port: int = 443, scheme: str = "https"):
@@ -64,6 +57,6 @@ class HttpClientFactory:
         self.port = port
         self.scheme = scheme
 
-    def get_client(self, path: str, headers: Dict) -> HttpClient:
-        uri = f"{self.scheme}://{self.host}{path}:{self.port}"
-        return HttpClient(uri, headers)
+    def get_client(self, path: str, headers: Optional[Dict] = None) -> HttpClient:
+        uri = f"{self.scheme}://{self.host}:{self.port}{path}"
+        return HttpClient(uri, headers=headers)
