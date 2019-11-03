@@ -31,5 +31,5 @@ async def test_get_auth_qrcode(api: TalkApi):
 
     この関数で実際にAPIとの疎通が出来るか確認する
     """
-    res = await api.getAuthQrcode(FContext(), False, "Sh1ma", False)
-    assert bool(res) is True
+    res = await api.getAuthQrcode(FContext(), False, "pyne", False)
+    assert bool(res)

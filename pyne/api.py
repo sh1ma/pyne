@@ -13,7 +13,7 @@ from thrift.protocol.TCompactProtocol import TCompactProtocolAcceleratedFactory
 
 from .http_client import HttpClientFactory
 from .line_thrift.line import FAuthServiceClient, FTalkServiceClient
-from .protocol import LegyProtocolFactory
+from .protocol import LineProtocolFactory
 
 
 class Api(metaclass=ABCMeta):
@@ -31,7 +31,7 @@ class ApiFactory(metaclass=ABCMeta):
     def get_provider(self, path, headers) -> FServiceProvider:
         http_client = HttpClientFactory(self.host).get_client(path, headers)
         protocol_factory = TCompactProtocolAcceleratedFactory()
-        provider = FServiceProvider(http_client, LegyProtocolFactory(protocol_factory))
+        provider = FServiceProvider(http_client, LineProtocolFactory(protocol_factory))
         return provider
 
 
