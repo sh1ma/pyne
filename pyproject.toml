@@ -12,6 +12,8 @@ aiohttp = "^3.6"
 async-timeout = "^3.0"
 asyncio-nats-client = "^0.10.0"
 aiostomp = "^1.6"
+pycryptodome = "^3.9"
+python-axolotl-curve25519 = {git = "https://github.com/tgalal/python-axolotl-curve25519.git"}
 
 [tool.poetry.dev-dependencies]
 black = {version = "^18.3-alpha.0",allows-prereleases = true}
