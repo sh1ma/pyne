@@ -24,7 +24,6 @@ class HttpClient(FTransportBase):
             "Accept": "application/x-thrift",
         }
         self.headers.update(headers)
-        self.session = None
 
     def is_open(self) -> bool:
         return True
