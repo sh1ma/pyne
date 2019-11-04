@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: sudo apt update
-      run: sudo apt update
+    - name: sudo apt upgrade
+      run: sudo apt upgrade
     - name: apt install
-      run: sudo apt install gcc
+      run: sudo apt-get install build-essential libffi-dev
     - name: Install
       uses: abatilo/actions-poetry@v1.0.0
       with:
