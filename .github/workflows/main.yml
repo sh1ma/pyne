@@ -10,7 +10,7 @@ jobs:
     - name: sudo apt update
       run: sudo apt update
     - name: apt install
-      run: sudo apt install python3-cffi libsodium-dev
+      run: sudo apt install gcc
     - name: Install
       uses: abatilo/actions-poetry@v1.0.0
       with:
