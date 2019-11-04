@@ -4,9 +4,11 @@ on: push
 jobs:
   pytest:
     name: pytest
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+    - name: gcc
+      run: sudo apt install build-essential
     - name: Install
       uses: abatilo/actions-poetry@v1.0.0
       with:
