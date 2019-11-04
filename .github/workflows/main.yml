@@ -7,6 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+    - name: which gcc
+      run: which gcc
     - name: sudo apt upgrade
       run: sudo apt upgrade
     - name: apt install
