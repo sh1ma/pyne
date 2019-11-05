@@ -14,7 +14,7 @@ jobs:
     - name: apt upgrade
       run: sudo apt upgrade
     - name: apt install
-      run: sudo apt install python3-cffi libsodium-dev
+      run: sudo apt install python3-cffi libsodium-dev build-essential
     - name: Install
       uses: abatilo/actions-poetry@v1.0.0
       with:
