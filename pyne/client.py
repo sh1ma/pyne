@@ -10,7 +10,7 @@ from logging import getLogger
 from .config import Config, Endpoints
 from .api import AuthApiFactory, TalkApiFactory
 
-log = getLogger(__name__)
+logger = getLogger(__name__)
 
 
 class Client:
@@ -32,7 +32,7 @@ class Client:
 
         self.headers = {
             "X-Line-Application": self.line_app,
-            "User-Agent": self.line_app,
+            "User-Agent": self.user_agent,
         }
 
     def login_with_qrcode(self):
