@@ -9,9 +9,10 @@ jobs:
     - uses: actions/checkout@master
     - name: which gcc
       run: which gcc
+    - name: apt update
+      run: sudo apt update
     - name: apt upgrade
-      run: sudo apt update \ 
-          sudo apt upgrade  
+      run: sudo apt upgrade
     - name: apt install
       run: sudo apt install python3-cffi libsodium-dev
     - name: Install
