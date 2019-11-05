@@ -15,6 +15,9 @@ jobs:
           architecture: "x64"
       - name: poetry
         uses: dschep/install-poetry-action@v1.2
+      - name: install
+        run: |
+          poetry install
       - name: Run pytest
         run: |
           python -m pytest /tests
