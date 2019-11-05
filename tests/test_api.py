@@ -7,7 +7,8 @@ test_api.py
 import pytest
 from frugal.context import FContext
 
-from pyne.api import TalkApi, TalkApiFactory
+from pyne.talk import TalkApi, TalkApiFactory
+from pyne.config import Config, Endpoints
 
 pytestmark = pytest.mark.asyncio
 
@@ -17,12 +18,14 @@ def api():
     """
     `TalkApi`を生成するフィクスチャ
     """
-    return TalkApiFactory("legy-jp-addr.line.naver.jp").create(
-        "/api/v4/TalkService.do",
+    config = Config()
+    endpoints = Endpoints()
+    return TalkApiFactory(config.host).create(
+        endpoints.registration,
         headers={
-            "X-Line-Application": "CHROMEOS\t2.2.2\tChrome_OS\t1",
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36",
-        },
+            "X-Line-Application": config.line_app,
+            "User-Agent": config.user_agent,
+        }
     )
 
 
