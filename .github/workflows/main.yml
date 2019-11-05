@@ -15,6 +15,5 @@ jobs:
       - name: poetry
         uses: dschep/install-poetry-action@v1.2
       - name: Run pytest
-        uses: abatilo/actions-poetry@v1.0.0
-        with:
-          args: run python -m pytest tests/
+        run: |
+          python -m pytest /tests
