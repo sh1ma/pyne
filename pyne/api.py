@@ -12,7 +12,6 @@ from frugal.provider import FServiceProvider
 from thrift.protocol.TCompactProtocol import TCompactProtocolAcceleratedFactory
 
 from .http_client import HttpClientFactory
-from .line_thrift.line import FAuthServiceClient, FTalkServiceClient
 from .protocol import LineProtocolFactory
 
 
@@ -58,33 +57,3 @@ class ApiFactory(metaclass=ABCMeta):
         protocol_factory = TCompactProtocolAcceleratedFactory()
 
         return FServiceProvider(http_client, LineProtocolFactory(protocol_factory))
-
-
-class TalkApi(Api, FTalkServiceClient):
-    """TalkServiceのApiクラス
-
-    """
-
-
-class TalkApiFactory(ApiFactory):
-    """`TalkApi`のファクトリクラス
-
-    """
-    def create(self, path: str, headers: Dict) -> TalkApi:
-        provider = self.get_provider(path, headers)
-        return TalkApi(provider)
-
-
-class AuthApi(Api, FAuthServiceClient):
-    """AuthServiceのApiクラス
-
-    """
-
-
-class AuthApiFactory(ApiFactory):
-    """`AuthApi`のファクトリクラス
-
-    """
-    def create(self, path: str, headers: Dict) -> AuthApi:
-        provider = self.get_provider(path, headers)
-        return AuthApi(provider)
