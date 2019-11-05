@@ -9,12 +9,10 @@ jobs:
     - uses: actions/checkout@master
     - uses: actions/setup-python@v1
       with:
-        python-version: '3.7.5' # Version range or exact version of a Python version to use, using semvers version range syntax.
-        architecture: 'x64' # (x64 or x86)
+        python-version: '3.7.5'
+        architecture: 'x64'
     - name: update pip
       run: sudo pip install --upgrade pip
-    - name: apt install
-      run: sudo apt install python3-cffi libsodium-dev build-essential
     - name: Install
       uses: abatilo/actions-poetry@v1.0.0
       with:
