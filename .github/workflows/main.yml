@@ -10,7 +10,8 @@ jobs:
     - name: which gcc
       run: which gcc
     - name: apt upgrade
-      run: apt-get update 
+      run: sudo apt update \ 
+          sudo apt upgrade  
     - name: apt install
       run: sudo apt install python3-cffi libsodium-dev
     - name: Install
