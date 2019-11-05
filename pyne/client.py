@@ -5,10 +5,8 @@
  https://opensource.org/licenses/MIT
 """
 
-import asyncio
 from logging import getLogger
 from .config import Config, Endpoints
-from .api import AuthApiFactory, TalkApiFactory
 
 log = getLogger(__name__)
 
