@@ -12,7 +12,7 @@ jobs:
     - name: sudo apt upgrade
       run: sudo apt upgrade
     - name: apt install
-      run: sudo apt-get install build-essential libffi-dev
+      run: sudo apt install python3-cffi libsodium-dev
     - name: Install
       uses: abatilo/actions-poetry@v1.0.0
       with:
