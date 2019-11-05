@@ -15,4 +15,8 @@ class Config:
 
 @dataclasses.dataclass
 class Endpoints:
-    pass
+    main: str = "/S4"
+    registration: str = "/api/v4/TalkService.do"
+    operations: str = "/P4"
+    no_auth: str = "/api/v4p/rs"
+    auth_verify: str = "/Q"
