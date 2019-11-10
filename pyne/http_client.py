@@ -29,10 +29,10 @@ class HttpClient(FTransportBase):
         return True
 
     def open(self) -> None:
-        return True
+        pass
 
     async def close(self) -> None:
-        NotImplementedError()
+        pass
 
     async def oneway(self, context, payload):
         NotImplementedError()
