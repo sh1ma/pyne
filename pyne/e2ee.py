@@ -5,8 +5,8 @@ import urllib.parse
 import base64
 import hashlib
 import Crypto.Cipher.AES as AES
-# import axolotl_curve25519 as curve
-from nacl.public import PrivateKey, Box
+import axolotl_curve25519 as curve
+# from nacl.public import PrivateKey, PublicKey, Box
 
 E2EEKeyPair = collections.namedtuple("E2EEKeyPair", ["private_key", "public_key"])
 AESKeyAndIv = collections.namedtuple("AESKeyAndIv", ["Key", "iv"])
@@ -16,10 +16,10 @@ IV = "IV".encode("utf-8")
 
 
 def generate_asymmetric_keypair():
-    # private_key = curve.generatePrivateKey(os.urandom(32))
-    # public_key = curve.generatePublicKey(private_key)
-    private_key = PrivateKey(private_key=os.urandom(32))
-    public_key = private_key.public_key
+    private_key = curve.generatePrivateKey(os.urandom(32))
+    public_key = curve.generatePublicKey(private_key)
+    # private_key = PrivateKey(private_key=os.urandom(32))
+    # public_key = private_key.public_key
 
 
     return E2EEKeyPair(private_key, public_key)
@@ -32,8 +32,8 @@ def generate_query(public_key) -> str:
 
 
 def generate_shared_secret(private_key, public_key):
-    # shared_secret = curve.calculateAgreement(private_key, public_key)
-    shared_secret = Box(private_key, public_key).shared_key()
+    shared_secret = curve.calculateAgreement(private_key, public_key)
+    # shared_secret = Box(private_key, public_key).shared_key()
 
     return shared_secret
 
