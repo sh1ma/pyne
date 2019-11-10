@@ -46,9 +46,11 @@ class HttpClient(FTransportBase):
             "POST",
             url=self.uri,
             data=payload,
-            headers=self.headers
+            headers=self.headers,
+            raise_for_status=True,
         ) as res:
             return TMemoryBuffer(await res.content.read())
+
 
 class HttpClientFactory:
     def __init__(self, host: str, port: int = 443, scheme: str = "https"):
