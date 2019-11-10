@@ -69,7 +69,7 @@ class Client:
         secret_query = create_secret_query(key_pair.public_key)
         url = f"line://au/q/{qr_verifier}?secret={secret_query}&e2eeVersion=1"
         print(url)
-        secret, metadata = await self.verify_auth(qr_verifier)
+        auth_verifier, metadata = await self.verify_auth(qr_verifier)
         encrypted_keychain = metadata["encryptedKeyChain"]
         _ = metadata["hashKeyChain"]
         public_key = metadata["publicKey"]
@@ -81,11 +81,12 @@ class Client:
             identityProvider=IdentityProvider.LINE,
             keepLoggedIn=False,
             accessLocation="127.0.0.1",
-            secret=secret,
+            verifier=auth_verifier,
+            secret=key_pair.public_key,
             e2eeVersion=1,
         )
-        auth_token = await self.login(login_req)
-        self.headers["X-Line-Access"] = auth_token
+        login_result: LoginResult = (await self.login(login_req))
+        self.headers["X-Line-Access"] = login_result.authToken
 
     async def verify_auth(self, qr_verifier: str) -> AuthInfo:
         self.headers["X-Line-Access"] = qr_verifier
@@ -95,7 +96,7 @@ class Client:
             headers=self.headers,
             raise_for_status=True,
         ) as res:
-            result = await res.json()["result"]
+            result = (await res.json())["result"]
             auth_verifier = result["verifier"]
             metadata = result["metadata"]
 
@@ -109,10 +110,8 @@ class Client:
 
         return keychain
 
-    def login(self, login_req: LoginRequest) -> str:
+    async def login(self, login_req: LoginRequest) -> str:
         login_conn = AuthApiFactory(self.host).create(
             self.endpoints.no_auth, self.headers
         )
-        login_result: LoginResult = await login_conn.login(login_req)
-
-        return login_result.authToken
+        return (await login_conn.login(login_req))
