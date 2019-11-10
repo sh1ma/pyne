@@ -13,15 +13,13 @@ async-timeout = "^3.0"
 asyncio-nats-client = "^0.10.0"
 aiostomp = "^1.6"
 pycryptodome = "^3.9"
-pynacl = "^1.3"
-
+python-axolotl-curve25519 = {git = "https://github.com/tgalal/python-axolotl-curve25519"}
 [tool.poetry.dev-dependencies]
 black = {version = "^18.3-alpha.0",allows-prereleases = true}
 pylint = "^2.4"
 pytest = "^5.2"
 ipython = "^7.9"
 pytest-asyncio = "^0.10.0"
-pytest-cov = "^2.8"
 
 [build-system]
 requires = ["poetry>=0.12"]
