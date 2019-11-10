@@ -20,7 +20,7 @@ def client():
     client = Client()
     return client
 
-
+@pytest.mark.skip(reason="ログイン処理のため")
 async def test_get_auth_qrcode(client: Client):
     """`getAuthQrcode`のテストコード
 
