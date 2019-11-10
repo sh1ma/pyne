@@ -7,11 +7,11 @@
 
 from typing import Dict
 
-from .api import Api, ApiFactory
-from .line_thrift.line import FAuthServiceClient
-from .line_thrift.line import LoginResult, LoginRequest
-
 from frugal.context import FContext
+
+from .api import Api, ApiFactory
+from .line_thrift.line import FAuthServiceClient, LoginRequest, LoginResult
+
 
 class AuthApi(Api, FAuthServiceClient):
     """AuthServiceのApiクラス
@@ -19,9 +19,7 @@ class AuthApi(Api, FAuthServiceClient):
     """
 
     async def login(self, login_request: LoginRequest) -> LoginResult:
-        login_result: LoginResult = await self.loginZ(FContext(), login_request)
-
-        return login_result
+        await self.loginZ(FContext(), login_request)
 
 class AuthApiFactory(ApiFactory):
     """`AuthApi`のファクトリクラス
