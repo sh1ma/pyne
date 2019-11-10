@@ -25,10 +25,10 @@ def generate_asymmetric_keypair():
     return E2EEKeyPair(private_key, public_key)
 
 
-def generate_query(public_key) -> str:
+def create_secret_query(public_key) -> str:
     secret = urllib.parse.quote(base64.b64encode(public_key).decode("utf-8"))
 
-    return f"secret={secret}&e2eeVersion=1"
+    return secret
 
 
 def generate_shared_secret(private_key, public_key):
@@ -95,7 +95,7 @@ def decrypt_data_with_aes_ecb(aes_key, encrypted_data):
 
     return aes.decrypt(encrypted_data)
 
-def decrypt_keychain(keypair, encrypted_keychain, public_key):
+def decrypt_keychain(keypair, encrypted_keychain, public_key) -> bytes:
     private_key = keypair.private_key
     public_key = base64.b64decode(public_key)
     encrypted_keychain = base64.b64decode(encrypted_keychain)
